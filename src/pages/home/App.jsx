@@ -2,7 +2,7 @@
 import logo from "../../logo.svg";
 import "./App.css";
 // eslint-disable-next-line no-unused-vars
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React /*, { useState }*/ from "react";
@@ -14,6 +14,7 @@ import Connect from "../../component/connect/Connect";
 import Profile from "../../component/profile/Profile";
 import Footer from "../../component/footer/Footer";
 import AuthGuard from "../../helper/Authguard";
+import { selectData } from "../../utils/selectors";
 
 //import { accountService } from "../../services/accountService";
 
@@ -24,6 +25,8 @@ function App() {
   /*const fetchedData = localStorage.getItem("fetchedData");
   const parsedData = JSON.parse(fetchedData);
   console.log(parsedData?.data?.body?.token); //-> peut servir à vérifier que le token est bien supprimé du localStorage*/
+  const dataSetted = useSelector(selectData);
+  console.log("data page d'accueil", dataSetted);
 
   return (
     <Routes>

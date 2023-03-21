@@ -2,24 +2,15 @@
 
 /* eslint-disable react/react-in-jsx-scope */
 
-
-
-//import { selectState2 } from "../../utils/selectors";
-//import { useSelector, useDispatch } from "react-redux";
-//import { action2 } from "./Actions";
-
-//import { useState } from "react";
-
-
+//import axios from "axios";
+//import { accountService } from "../../services/accountService";
+import { setData } from "./Actions";
+import { store } from "../../utils/store";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { accountService } from "../../services/accountService";
 import { useSelector, useDispatch } from "react-redux";
 import { selectEmail, selectPassword } from "../../utils/selectors";
 import { onChangeEmail, onChangePassword } from "./Actions";
-import { setData } from "./Actions";
-import { store } from "../../utils/store";
-
+import { connectAPI } from "../../services/APIcalls";
 
 function Connect(){
 
@@ -39,22 +30,16 @@ function Connect(){
   };
 
 
-
   const onSubmit = (e) => {
-      e.preventDefault();
-      //http://localhost:3001/api/v1/user/signup
-      //http://localhost:3001/user/login
-      const storedData = JSON.parse(localStorage.getItem("fetchedData"));
-      axios.post("http://localhost:3001/api/v1/user/login", { email, password })
-        .then(res => {
-          accountService.saveToken(res.data.body.token);
-          localStorage.setItem("fetchedData", JSON.stringify(res));
-          const dataToSet = storedData || res; // utilise les données existantes si elles existent
-          store.dispatch(setData(dataToSet)); // envoie les données dans le store
-          navigate("/user/profile");
-        })
-        .catch(error => console.log(error));
+    e.preventDefault();
+    const storedData = JSON.parse(localStorage.getItem("fetchedData"));
+    connectAPI(email, password);
+    const dataToSet = storedData; // utilise les données existantes si elles existent
+    store.dispatch(setData(dataToSet)); // envoie les données dans le store
+    navigate("/user/profile");
   };
+
+
 
 
   return(
@@ -108,3 +93,20 @@ export default Connect;
         </div>
 
     );*/
+
+
+      /*
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const storedData = JSON.parse(localStorage.getItem("fetchedData"));
+    axios.post("http://localhost:3001/api/v1/user/login", { email, password })
+      .then(res => {
+        accountService.saveToken(res.data.body.token);
+        localStorage.setItem("fetchedData", JSON.stringify(res));
+        const dataToSet = storedData || res; // utilise les données existantes si elles existent
+        store.dispatch(setData(dataToSet)); // envoie les données dans le store
+        navigate("/user/profile");
+      })
+      .catch(error => console.log(error));
+  };
+  */

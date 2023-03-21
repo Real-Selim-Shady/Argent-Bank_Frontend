@@ -6,6 +6,7 @@ let saveToken = (token) => {
 let logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("fetchedData");
+    localStorage.removeItem("userData");
 };
 
 let isLogged = () => {
@@ -14,6 +15,10 @@ let isLogged = () => {
     return !!token;
 };
 
+let userData = () => {
+    localStorage.setItem("userData", userData);
+};
+
 export const accountService = {
-    saveToken, logout, isLogged
+    saveToken, logout, isLogged, userData
 };

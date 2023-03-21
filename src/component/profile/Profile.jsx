@@ -10,7 +10,8 @@ import { useDispatch, useSelector/*, useDispatch*/ } from "react-redux";
 import { setData } from "../connect/Actions";
 import { useEffect } from "react";
 //import { store } from "../../utils/store";
-
+//import { accountService } from "../../services/accountService";
+import { getData } from "../../services/APIcalls";
 
 
 function Profile(){
@@ -26,8 +27,7 @@ function Profile(){
   }, []);
   
   console.log("fetchedData", parsedData);
-  console.log("avant use", dataSetted);
-  console.log("après use", dataSetted);
+  console.log("data page profile", dataSetted);
 
 
     return (
@@ -46,10 +46,11 @@ function Profile(){
           <div className="account-content-wrapper cta">
             <button className="transaction-button">View transactions</button>
           </div>
-          <div>
-            token: {parsedData.data.body.token}
-          </div>
         </section>
+        <div>
+            token: {dataSetted?.data?.body?.token}
+        </div>
+        <button onClick={getData}>LE BOUTON DATA</button>
       </main>
     );
 }
