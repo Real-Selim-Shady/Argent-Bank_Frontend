@@ -13,6 +13,10 @@ import { store } from "../../utils/store";
 import { selectToken } from "../../utils/selectors";
 import { Navigate } from "react-router-dom";
 import { getData } from "../../services/APIcalls";
+import "./Profile.css";
+import { isEditingAction } from "./Actions";
+import { isNotEditingAction } from "./Actions";
+import { selectEditUserInfo } from "../../utils/selectors";
 
 
 function Profile(){
@@ -27,6 +31,9 @@ function Profile(){
   const userDataSetted = useSelector(selectUserData);
   //const firstNameState = useSelector(selectFirstName); //-> à transferer dans l'intermédiaire
   //const lastNameState = useSelector(selectLastName); //-> à transferer dans l'intermédiaire
+
+  const isEditing = useSelector(selectEditUserInfo);
+  console.log("is editing?", isEditing);
 
 
   useEffect(() => {
@@ -58,7 +65,7 @@ function Profile(){
 
    
   const edit = () => {
-    //updateData();
+    store.dispatch(isEditingAction());
   };
 
 
@@ -89,33 +96,56 @@ function Profile(){
     };
 
     asyncUpdate();
+    store.dispatch(isNotEditingAction());
+  };
+
+  const cancelEdit = () => {
+    store.dispatch(isNotEditingAction());
 
   };
+
 
     if(tokenState != null){
       if (!isLoaded) {
       return (
       <main className="main bg-dark">
+        {(isEditing === false)&&
           <div className="header" id="validated">
             {<h1>Welcome back<br />{userDataSetted?.body?.firstName} {userDataSetted?.body?.lastName} !</h1>}
-            {/*<h1>Version states<br />{firstNameState} {lastNameState} {"later"} !</h1>*/}
             <button className="edit-button" onClick={edit}>Edit Name</button>
           </div>
+        }
+        {(isEditing === true)&&
           <div className="header" id="toBeValidated">
             <form onSubmit={onSubmit}>
-              <div className="input-wrapper">
-                <label htmlFor="firstName">First Name</label>
-                <input type="text" name="firstName" id="firstName" value={userDataSetted?.body?.firstName} /*onFocus= "" */ onChange={onFirstNameChange} />
+            {<h1>Welcome back<br /></h1>}
+              <div className="names-to-edit">
+                <div className="input-wrapper name-edit">
+                  {/*<label htmlFor="firstName">First Name</label>*/}
+                  <input type="text" name="firstName" id="firstName" value={userDataSetted?.body?.firstName} onChange={onFirstNameChange} />
+                </div>
+                <div className="input-wrapper name-edit">
+                  {/*<label htmlFor="lastName">Last Name</label>*/}
+                  <input type="text" name="lastName" id="lastName" value={userDataSetted?.body?.lastName} onChange={onLastNameChange} />
+                </div>
               </div>
-              <div className="input-wrapper">
-                <label htmlFor="lastName">Last Name</label>
-                <input type="text" name="lastName" id="lastName"  value={userDataSetted?.body?.lastName} /*onFocus= "" */ onChange={onLastNameChange} />
-              </div>
-              <button className="sign-in-button">Edit</button>
+              <button className="save-edit-button" onClick={onSubmit}>save</button>
+              <button className="save-edit-button" onClick={cancelEdit}>cancel</button>
             </form>
           </div>
+        }
           <h2 className="sr-only">Accounts</h2>
           <section className="account">
+            <div className="account-content-wrapper">
+              <h3 className="account-title">Argent Bank Checking (x8349)</h3>
+              <p className="account-amount">$2,082.79</p>
+              <p className="account-amount-description">Available Balance</p>
+            </div>
+            <div className="account-content-wrapper">
+              <h3 className="account-title">Argent Bank Checking (x8349)</h3>
+              <p className="account-amount">$2,082.79</p>
+              <p className="account-amount-description">Available Balance</p>
+            </div>
             <div className="account-content-wrapper">
               <h3 className="account-title">Argent Bank Checking (x8349)</h3>
               <p className="account-amount">$2,082.79</p>
@@ -125,7 +155,6 @@ function Profile(){
               <button className="transaction-button">View transactions</button>
             </div>
           </section>
-          {/*<button onClick={rebootData}>Reboot Tony s Data</button>*/}
         </main>
       );}else{return (<div>loading</div>);}
     }else{

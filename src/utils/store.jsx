@@ -33,6 +33,7 @@ const initialState = {
     firstNameCreation:"",
     lastNameCreation:"",
     signupFieldsErrorStatus: false,
+    editing: false,
 };
 
 
@@ -111,6 +112,14 @@ function reducer( state = initialState, action){
         case "goodSubmitSignupAction":
             return produce(state, draft => {
                 draft.signupFieldsErrorStatus = action.payload;
+            });
+        case "isEditing":
+            return produce(state, draft => {
+                draft.editing = action.payload;
+            });
+        case "isNotEditing":
+            return produce(state, draft => {
+                draft.editing = action.payload;
             });
         default:
             return state;

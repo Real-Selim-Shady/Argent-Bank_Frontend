@@ -1,0 +1,34 @@
+
+
+.names-to-edit{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.name-edit{
+    width: 200px;
+    margin-right: 15px;
+    border-radius: 5%;
+}
+
+.name-edit input{
+    border-radius: 7px;
+}
+
+/*
+.name-edit {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+  
+.name-edit label {
+font-weight: bold;
+}
+
+.name-edit input {
+padding: 5px;
+font-size: 1.2rem;
+}*/

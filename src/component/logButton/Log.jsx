@@ -56,20 +56,6 @@ function Log(){
             store.dispatch(setUserData(fetchedUserData));};
             nameAsync();
         }
-        /*if( newFetchedUserData != null){
-            console.log("new data used");
-            setUserData(newFetchedUserData);
-            store.dispatch(setUserData(newFetchedUserData));
-            store.dispatch(setFirstName(userDataSetted?.body?.firstName));
-            store.dispatch(setLastName(userDataSetted?.body?.lastName));
-            setIsLoaded(false);
-          }else if(fetchedUserData){
-            setUserData(fetchedUserData);
-            store.dispatch(setUserData(fetchedUserData));
-            store.dispatch(setFirstName(fetchedUserData.body.firstName));
-            store.dispatch(setLastName(fetchedUserData.body.lastName));
-            setIsLoaded(false);
-          }*/
         
     }, []);
 
@@ -77,11 +63,11 @@ function Log(){
         //if(tokenCheck === null){
         return (
             <div>
-                <a className="main-nav-item" onClick={signUp}>
+                <a className="main-nav-item" href="" onClick={signUp}>
                 <i className="fa fa-user-circle"></i>
                 Sign up
                 </a>
-                <a className="main-nav-item" onClick={login}>
+                <a className="main-nav-item" href="" onClick={login}>
                 <i className="fa fa-user-circle"></i>
                 Sign In
                 </a>

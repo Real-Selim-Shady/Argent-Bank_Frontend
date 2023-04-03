@@ -21,3 +21,5 @@ export const selectUserData = (state) => state?.userData;
 export const selectToken = (state) => state?.token;
 
 export const selectSignupFieldsErrorStatus = (state) => state?.signupFieldsErrorStatus;
+
+export const selectEditUserInfo = (state) => state?.editing;
