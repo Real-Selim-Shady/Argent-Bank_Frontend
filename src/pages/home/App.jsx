@@ -14,7 +14,8 @@ import Connect from "../../component/connect/Connect";
 import Profile from "../../component/profile/Profile";
 import Footer from "../../component/footer/Footer";
 import AuthGuard from "../../helper/Authguard";
-import { selectData } from "../../utils/selectors";
+import Signup from "../../component/signup/Signup";
+//import { selectData } from "../../utils/selectors";
 
 //import { accountService } from "../../services/accountService";
 
@@ -25,8 +26,10 @@ function App() {
   /*const fetchedData = localStorage.getItem("fetchedData");
   const parsedData = JSON.parse(fetchedData);
   console.log(parsedData?.data?.body?.token); //-> peut servir à vérifier que le token est bien supprimé du localStorage*/
-  const dataSetted = useSelector(selectData);
-  console.log("data page d'accueil", dataSetted);
+  //const dataSetted = useSelector(selectData);
+  //console.log("data page d'accueil", dataSetted);
+  //console.log("token app",dataSetted?.body?.token);
+
 
   return (
     <Routes>
@@ -49,6 +52,14 @@ function App() {
         <div>
           <Header />
           <Connect />
+          <Footer />
+        </div>
+      }
+       />
+      <Route path="/user/signup" element={
+        <div>
+          <Header />
+          <Signup />
           <Footer />
         </div>
       }

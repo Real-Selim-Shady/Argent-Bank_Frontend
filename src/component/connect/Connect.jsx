@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectEmail, selectPassword } from "../../utils/selectors";
 import { onChangeEmail, onChangePassword } from "./Actions";
-import { connectAPI } from "../../services/APIcalls";
+import { connectAPI,/* connectAPI2,*//* getData*/ } from "../../services/APIcalls";
+import { getData } from "../../services/APIcalls";
 
 function Connect(){
 
@@ -30,12 +31,13 @@ function Connect(){
   };
 
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const storedData = JSON.parse(localStorage.getItem("fetchedData"));
-    connectAPI(email, password);
+    await connectAPI(email, password);
+    const storedData = JSON.parse(localStorage.getItem("fetchedData")); // valable connect api 2
     const dataToSet = storedData; // utilise les données existantes si elles existent
     store.dispatch(setData(dataToSet)); // envoie les données dans le store
+    await getData();
     navigate("/user/profile");
   };
 
@@ -64,7 +66,6 @@ function Connect(){
             <input type="checkbox" id="remember-me" />
           </div>
           <button className="sign-in-button">Sign In</button>
-          <a href="/user/profile">click go to profile for test</a>
         </form>
       </section>
     </main>

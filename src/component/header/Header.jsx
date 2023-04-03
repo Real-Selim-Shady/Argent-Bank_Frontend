@@ -21,7 +21,6 @@ function Header(){
                     />
                     <h1 className="sr-only">Argent Bank</h1>
                 </a>
-                <a href="/user/profile">go to profile</a>
                 <div>
                     <Log />
                 </div>

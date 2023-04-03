@@ -273,3 +273,8 @@ body {
     width: 200px;
   }
 }
+
+
+.empty-field-message{
+  color: red;
+}
