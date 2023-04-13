@@ -1,28 +1,10 @@
-/* eslint-disable no-unused-vars */
+
 import {createStore} from "redux";
 import produce from "immer";
-import { action1 } from "../component/component1/Actions";
-import { action2 } from "../component/component2/Actions";
-import { onChangeEmail } from "../component/connect/Actions";
-import { onChangePassword } from "../component/connect/Actions";
-import { onChangeFirstName } from "../component/profile/Actions";
-import { onChangeLastName } from "../component/profile/Actions";
-import { setFetchedData } from "../component/connect/Actions";
-import { setFirstName } from "../component/profile/Actions";
-import { setLastName } from "../component/profile/Actions";
-import { setToken } from "../component/profile/Actions";
-import { onChangeEmailCreation } from "../component/signup/Actions";
-import { onChangePasswordCreation } from "../component/signup/Actions";
-import { onChangeLastNameCreation } from "../component/signup/Actions";
-import { onChangeFirstNameCreation } from "../component/signup/Actions";
-import { errorSubmitSignupAction } from "../component/signup/Actions";
-import { goodSubmitSignupAction } from "../component/signup/Actions";
 
 const initialState = {
-    state1 : "",
-    state2 : "",
-    email: "tony@stark.com",
-    password:"password123",
+    email: "",
+    password:"",
     data: {},
     userData: {},
     firstName: "",
@@ -33,7 +15,9 @@ const initialState = {
     firstNameCreation:"",
     lastNameCreation:"",
     signupFieldsErrorStatus: false,
+    signinFieldsErrorStatus: false,
     editing: false,
+    remembered: false,
 };
 
 
@@ -113,6 +97,14 @@ function reducer( state = initialState, action){
             return produce(state, draft => {
                 draft.signupFieldsErrorStatus = action.payload;
             });
+        case "errorSubmitSigninAction":
+            return produce(state, draft => {
+                draft.signinFieldsErrorStatus = action.payload;
+            });
+        case "goodSubmitSigninAction":
+            return produce(state, draft => {
+                draft.signinFieldsErrorStatus = action.payload;
+            });
         case "isEditing":
             return produce(state, draft => {
                 draft.editing = action.payload;
@@ -120,6 +112,10 @@ function reducer( state = initialState, action){
         case "isNotEditing":
             return produce(state, draft => {
                 draft.editing = action.payload;
+            });
+        case "changeRememberStatus":
+            return produce(state, draft => {
+                draft.remembered = !draft.remembered;
             });
         default:
             return state;

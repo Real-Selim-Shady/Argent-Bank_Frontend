@@ -8,5 +8,7 @@ type: "SET_DATA",
 payload: data,
 });
 
-//export const onChangeEmail = (event) => ({type: "onChangeEmail", event});
-//export const onChangePassword = (event) => ({type: "onChangePassword"}, event);
+export const setRemember = () => ({type: "changeRememberStatus"});
+
+export const errorSubmitSigninAction = () => ({type: "errorSubmitSigninAction", payload : true});
+export const goodSubmitSigninAction = () => ({type: "goodSubmitSigninAction", payload : false});

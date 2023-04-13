@@ -1,0 +1,22 @@
+
+.main-nav-item {
+    text-decoration: none;
+    margin-right: 0.5rem;
+    font-family: 'Anuphan', sans-serif;
+}
+
+.main-nav-item:hover {
+text-decoration: underline;
+}
+
+.iconProfile{
+    color: #808080;
+    background: #e4e7f1;
+    border-radius: 50px;
+    padding: 7px;
+}
+
+
+.iconMargin{
+    margin-right: 9px;
+}

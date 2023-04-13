@@ -1,19 +1,21 @@
 
 let saveToken = (token) => {
-    localStorage.setItem("token2", token);
+    localStorage.setItem("token", token);
+};
+
+let saveTokenTemporarily = (token) => {
+    sessionStorage.setItem("token", token);
 };
 
 let logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("token2");
-    localStorage.removeItem("fetchedData");
-    localStorage.removeItem("user/signedUp");
-    localStorage.removeItem("user/signedUpEdited");
-    localStorage.removeItem("user/signedUpEdited2");
+    localStorage.removeItem("user/signedIn");
+    localStorage.removeItem("user/signedInEdited");
+    sessionStorage.removeItem("token");
 };
 
 let isLogged = () => {
-    let token = localStorage.getItem("token2");
+    let token = localStorage.getItem("token");
     return !!token;
 };
 
@@ -22,10 +24,10 @@ let userDataStore = (userData) => {
 };
 
 let updateUserDataStore = (userData) => {
-    localStorage.setItem("user/signedUpEdited", userData);
+    localStorage.setItem("user/signedInEdited", userData);
 };
 
 
 export const accountService = {
-    saveToken, logout, isLogged, userDataStore, updateUserDataStore
+    saveToken, saveTokenTemporarily, logout, isLogged, userDataStore, updateUserDataStore
 };

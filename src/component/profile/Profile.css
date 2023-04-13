@@ -1,29 +1,56 @@
+.main {
+    flex: 1;
+}
+  
+.bg-dark {
+background-color: #e4e7f1;
+padding-bottom: 20px;
+padding-top: 1px;
+}
 
+.header {
+    color: black;
+    margin-bottom: 2rem;
+    font-family: 'Anuphan', sans-serif;
+}
+
+.edit-button {
+    border-color: #6b63d3;
+    background-color: #6b63d3;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+}
 
 .names-to-edit{
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    display: flex; 
+    text-align: left;
+    border-color: #80808063;
+    margin-left: 15px;
 }
 
-.name-edit{
-    width: 200px;
-    margin-right: 15px;
-    border-radius: 5%;
-}
+
 
 .name-edit input{
     border-radius: 7px;
 }
 
-/*
+
 .name-edit {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-bottom: 1rem;
-  }
-  
+display: flex;
+flex-direction: column;
+text-align: left;
+margin-bottom: 1rem;
+width: 160px;
+border-color: #80808063;
+margin-right: 15px;
+border-radius: 5%;
+border-bottom-width: medium;
+}
+
 .name-edit label {
 font-weight: bold;
 }
@@ -31,4 +58,110 @@ font-weight: bold;
 .name-edit input {
 padding: 5px;
 font-size: 1.2rem;
-}*/
+}
+
+
+
+.inputNameEditClass {
+    border-color: #80808063;
+}
+
+.save-edit-button{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #6b63d3;
+    background-color: white;
+    color: #6b63d3;
+    font-family: 'Anuphan', sans-serif;
+    border-radius: 5px;
+    margin-left: 9px;
+    margin-right: 6px;
+    margin-top: -5px;
+}
+
+
+.account {
+display: flex;
+justify-content: space-between;
+align-items: center;
+border: 2px solid #80808063;
+background-color: #fff;
+width: 80%;
+margin: 0 auto;
+flex-direction: column;
+padding: 1.5rem;
+box-sizing: border-box;
+text-align: left;
+margin-bottom: 2rem;
+}
+
+.account-amount {
+margin: 0;
+font-size: 2.5rem;
+font-weight: bold;
+}
+
+.account-amount-description {
+margin: 0;
+}
+
+.account-title {
+margin: 0;
+padding: 0;
+font-size: 1rem;
+font-weight: normal;
+}
+
+.account-content-wrapper {
+width: 100%;
+flex: 1;
+}
+
+.transaction-button {
+display: block;
+width: 100%;
+padding: 8px;
+font-size: 1.1rem;
+font-weight: bold;
+margin-top: 1rem;
+border-color: #6b63d3;
+background-color: #6b63d3;
+color: #fff;
+font-family: 'Anuphan', sans-serif;
+border-radius: 5px;
+}
+
+
+@media (min-width: 720px) {
+    .account {
+      flex-direction: row;
+    }
+  
+    .account-content-wrapper.cta {
+      flex: 0;
+  
+    }
+  
+    .transaction-button {
+      width: 200px;
+    }
+}
+
+.empty-field-message{
+    color: red;
+}
+
+.sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important; /* 2 */
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important; /* 3 */
+}

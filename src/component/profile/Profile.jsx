@@ -1,5 +1,4 @@
-//import { selectFirstName } from "../../utils/selectors";
-//import { selectLastName } from "../../utils/selectors";
+
 import { onChangeFirstName } from "./Actions";
 import { onChangeLastName } from "./Actions";
 import { setFirstName } from "./Actions";
@@ -23,29 +22,23 @@ function Profile(){
 
   const [isLoaded, setIsLoaded] = useState(true);
 
-
   const dispatch = useDispatch();
 
   const tokenState = useSelector(selectToken);
 
   const userDataSetted = useSelector(selectUserData);
-  //const firstNameState = useSelector(selectFirstName); //-> à transferer dans l'intermédiaire
-  //const lastNameState = useSelector(selectLastName); //-> à transferer dans l'intermédiaire
 
   const isEditing = useSelector(selectEditUserInfo);
-  console.log("is editing?", isEditing);
 
 
   useEffect(() => {
 
     const workAsync = async () => {
       await getData();
-      const newFetchedUserData = JSON.parse(localStorage.getItem("user/signedUpEdited2"));
-      const fetchedUserData = JSON.parse(localStorage.getItem("user/signedUp"));
-      //console.log("newFetchedUserData", newFetchedUserData);
+      const newFetchedUserData = JSON.parse(localStorage.getItem("user/signedInEdited"));
+      const fetchedUserData = JSON.parse(localStorage.getItem("user/signedIn"));
 
       if( newFetchedUserData != null){
-        console.log("new data used");
         setUserData(newFetchedUserData);
         await store.dispatch(setUserData(newFetchedUserData));
         store.dispatch(setFirstName(userDataSetted?.body?.firstName));
@@ -60,7 +53,6 @@ function Profile(){
       }
     };
     workAsync();
-
   }, []);
 
    
@@ -91,7 +83,7 @@ function Profile(){
     
     const asyncUpdate = async () => {
       await updateData(dataEdit);
-      const newFetchedUserData = JSON.parse(localStorage.getItem("user/signedUpEdited2"));
+      const newFetchedUserData = JSON.parse(localStorage.getItem("user/signedUpEdited"));
       store.dispatch(setUserData(newFetchedUserData));
     };
 
@@ -100,10 +92,29 @@ function Profile(){
   };
 
   const cancelEdit = () => {
+    
+    const workAsync2 = async () => {
+      await getData();
+      const newFetchedUserData = JSON.parse(localStorage.getItem("user/signedUpEdited"));
+      const fetchedUserData = JSON.parse(localStorage.getItem("user/signedUp"));
+
+      if( newFetchedUserData != null){
+        setUserData(newFetchedUserData);
+        await store.dispatch(setUserData(newFetchedUserData));
+        store.dispatch(setFirstName(userDataSetted?.body?.firstName));
+        store.dispatch(setLastName(userDataSetted?.body?.lastName));
+        setIsLoaded(false);
+      }else if(fetchedUserData){
+        setUserData(fetchedUserData);
+        await store.dispatch(setUserData(fetchedUserData));
+        store.dispatch(setFirstName(fetchedUserData.body.firstName));
+        store.dispatch(setLastName(fetchedUserData.body.lastName));
+        setIsLoaded(false);
+      }
+    };
+    workAsync2();
     store.dispatch(isNotEditingAction());
-
   };
-
 
     if(tokenState != null){
       if (!isLoaded) {
@@ -120,17 +131,15 @@ function Profile(){
             <form onSubmit={onSubmit}>
             {<h1>Welcome back<br /></h1>}
               <div className="names-to-edit">
-                <div className="input-wrapper name-edit">
-                  {/*<label htmlFor="firstName">First Name</label>*/}
-                  <input type="text" name="firstName" id="firstName" value={userDataSetted?.body?.firstName} onChange={onFirstNameChange} />
+                <div className="name-edit">
+                  <input type="text" name="firstName" id="firstName" className="inputNameEditClass" value={userDataSetted?.body?.firstName} onChange={onFirstNameChange} />
                 </div>
-                <div className="input-wrapper name-edit">
-                  {/*<label htmlFor="lastName">Last Name</label>*/}
-                  <input type="text" name="lastName" id="lastName" value={userDataSetted?.body?.lastName} onChange={onLastNameChange} />
+                <div className="name-edit">
+                  <input type="text" name="lastName" id="lastName" className="inputNameEditClass" value={userDataSetted?.body?.lastName} onChange={onLastNameChange} />
                 </div>
               </div>
               <button className="save-edit-button" onClick={onSubmit}>save</button>
-              <button className="save-edit-button" onClick={cancelEdit}>cancel</button>
+              <button type="button" className="save-edit-button" onClick={cancelEdit}>cancel</button>
             </form>
           </div>
         }
@@ -141,15 +150,25 @@ function Profile(){
               <p className="account-amount">$2,082.79</p>
               <p className="account-amount-description">Available Balance</p>
             </div>
+            <div className="account-content-wrapper cta">
+              <button className="transaction-button">View transactions</button>
+            </div>
+          </section>
+          <section className="account">
             <div className="account-content-wrapper">
-              <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-              <p className="account-amount">$2,082.79</p>
+              <h3 className="account-title">Argent Bank Checking (x67124)</h3>
+              <p className="account-amount">$10,928.42</p>
               <p className="account-amount-description">Available Balance</p>
             </div>
+            <div className="account-content-wrapper cta">
+              <button className="transaction-button">View transactions</button>
+            </div>
+          </section>
+          <section className="account">
             <div className="account-content-wrapper">
-              <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-              <p className="account-amount">$2,082.79</p>
-              <p className="account-amount-description">Available Balance</p>
+              <h3 className="account-title">Argent Bank Checking (x5201)</h3>
+              <p className="account-amount">$184.30</p>
+              <p className="account-amount-description">Current Balance</p>
             </div>
             <div className="account-content-wrapper cta">
               <button className="transaction-button">View transactions</button>

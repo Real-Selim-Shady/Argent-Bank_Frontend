@@ -26,7 +26,11 @@ function AuthGuard({children}){
     useEffect(() => {
 
 
-        const tokenCheck = localStorage.getItem("token2");
+      
+        let tokenCheck = sessionStorage.getItem("token"); 
+        if (!tokenCheck) { 
+        tokenCheck = localStorage.getItem("token");
+        }
         store.dispatch(setToken(tokenCheck));
 
         setTimeout(() => {

@@ -1,8 +1,6 @@
 
 
-/* eslint-disable react/react-in-jsx-scope */
-
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectEmailCreation, selectPasswordCreation, selectFirstNameCreation, selectLastNameCreation } from "../../utils/selectors";
 import { onChangeEmailCreation, onChangePasswordCreation, onChangeFirstNameCreation, onChangeLastNameCreation } from "./Actions";
@@ -10,11 +8,12 @@ import { createData } from "../../services/APIcalls";
 import { selectSignupFieldsErrorStatus } from "../../utils/selectors";
 import { errorSubmitSignupAction } from "./Actions";
 import { goodSubmitSignupAction } from "./Actions";
+import "./Signup.css";
 
 function Signup(){
 
 
-  let navigate = useNavigate();
+  //let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const email = useSelector(selectEmailCreation);
@@ -43,46 +42,31 @@ function Signup(){
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    //let firstNameCreationTxt = event.target.elements.firstNameC.value;
-    //let lastNameCreationTxt = event.target.elements.lastNameC.value;
-    //let emailCreationTxt = event.target.elements.emailC.value;
-    //let passwordCreationTxt = event.target.elements.passwordC.value;
 
     if (email == "" || password == "" || firstName == "" || lastName == ""){
-      //document.getElementsByClassName("empty-field-message").style.display = "block";
+
       dispatch(errorSubmitSignupAction());
       return false;
     }else{
       dispatch(goodSubmitSignupAction());
-      const dataToCreate = {
-        "email" : email,
-        "password" : password,
-        "firstName" : firstName,
-        "lastName" : lastName,
-      };
-  
-      console.log("data sent to signup", dataToCreate);
-      //createData(dataToCreate);
-      createData(email,password,firstName,lastName);
-  
-      navigate("/user/login");
+
+
+      await createData(email,password,firstName,lastName);
+
     }
 
   };
 
-
-
-  //if connecté, redirigé directement vers profile
   return(
 
     <main className="main bg-dark">
-      <section className="sign-in-content">
-        <i className="fa fa-user-circle sign-in-icon"></i>
-        <h1>Sign In</h1>
+      <section className="sign-in-sign-up-content">
+        <i className="fa fa-solid fa-user sign-in-sign-up-icon iconProfileConnect"></i>
+        <h1>Sign Up</h1>
         <form onSubmit={onSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Email</label>
-            <input type="text" name="emailC" id="emailC" value={email} onChange={onEmailCreationChange} />
+            <input type="email" name="emailC" id="emailC" value={email} onChange={onEmailCreationChange} />
             {(email === "" && errorSubmitSignup === true) && <div className="empty-field-message">Please fill the email field</div>}
           </div>
           <div className="input-wrapper">
@@ -100,7 +84,7 @@ function Signup(){
             <input type="text" name="lastNameC" id="lastNameC" value={lastName} onChange={onLastNameCreationChange} />
             {(lastName === "" && errorSubmitSignup === true) && <div className="empty-field-message">Please fill the last name field</div>}
           </div>
-          <button className="sign-in-button">Sign In</button>
+          <button className="sign-in-sign-up-button">Sign Up</button>
         </form>
       </section>
     </main>

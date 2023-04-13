@@ -1,0 +1,253 @@
+swagger: '2.0'
+info:
+  title: Argent Bank Phase 2
+  description: |-
+    This is a sample Yaml file aiming to give Remede Agency's Frontend team point of view on how the API can be set up for the phase 2 needs.
+    This file is produced by Remede Agency's Frontend team, after working on phase 1 Frontend app.
+    The data used to inspire this work are phase 2 wireframes shared.
+    The goal is to imagine an API update which will allow users to:
+    - see all transactions achieved during the current month,
+    - see each transactions detail,
+    - add, modify or erase some of the transactions' details : category and notes (based on wireframes).
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+# host: localhost:3001
+# basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/accounts:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - accounts
+      summary: User Accounts API
+      description: Retrieve all user accounts
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User Accounts retrieved successfully
+          schema:
+            $ref: '#/definitions/Accounts'        
+        '403':
+          description: User not logged in
+        '500':
+          description: Internal Server Error
+  /user/getTransactions:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - transactions
+      summary: User transactions API showing transactions current month user’s transactions
+      description: Retrieve account's transactions for the current month
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: AccountFilter
+          description: AccountFilter with id and dates
+          schema:
+            $ref: '#/definitions/AccountFilter'
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Account's transactions retrieved successfully
+          schema:
+            $ref: '#/definitions/Transactions'    
+        '401':
+          description: Account doesn't exist
+        '403':
+          description: User not logged in
+        '500':
+          description: Internal Server Error
+  /user/editTransaction:
+    put:
+      tags:
+        - TransactionPut
+      summary: API for updating a user transaction
+      description: Edit transaction info
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: Info
+          description: Transaction's info
+          schema:
+            $ref: '#/definitions/Info'
+          required: true
+      responses:
+        '200':
+          description: Transaction's info modified successfully
+          schema:
+            $ref: '#/definitions/TransactionEdit'
+        '401':
+          description: Transaction doesn't exist
+        '403':
+          description: User not logged in
+        '500':
+          description: Internal Server Error
+      security:
+        - Bearer: []
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+          
+definitions:
+
+  Accounts:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int64
+      message:
+        type: string
+        format: string
+      accounts:
+        type: array
+        items:
+          $ref: '#/definitions/account'
+    xml:
+      name: accounts
+      
+  account:
+    type: object
+    properties:
+      accountReferences:
+        type: string
+        example: "Argent Bank Checking (x8349)"
+      amount:
+        type: number
+        example: 2082.79
+      accountId:
+        type: string
+        example: "Axxo8349"
+      balanceType:
+        type: string
+        example: "Available Balance"
+    xml:
+      name: accounts
+    
+    
+  Transactions:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int64
+      message:
+        type: string
+        format: string
+      transactions:
+        type: array
+        items:
+          $ref: '#/definitions/transaction'
+    xml:
+      name: transactions
+      
+  transaction:
+    type: object
+    properties:
+      date:
+        type: string
+        format: date
+        example: "20/06/2020"
+      description:
+        type: string
+        example: "Golden Sun Bakery"
+      amount:
+        type: number
+        example: 50.00
+      balance:
+        type: number
+        example: 2187.79
+      transactionType:
+        type: string
+        example: "Electronic"
+      category:
+        type: string
+        example: "Food"
+      notes:
+        type: string
+        example: "anything"
+      transactionID:
+        type: string
+        example: "Trans558349"
+    xml:
+      name: transactions
+  
+  AccountFilter:
+    type: object
+    properties:
+      accountId:
+        type: string
+        example: "Axxo8349"
+      dateFrom:
+        type: string
+        format: date
+        description: beginning of current month
+      dateTo:
+        type: string
+        format: date
+        description: end of current month
+
+
+  TransactionEdit:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int64
+      message:
+        type: string
+        format: string
+      schema:
+        $ref: '#/definitions/Info'
+    xml:
+      name: Details
+
+  Info:
+    type: object
+    properties:
+      category:
+        type: string
+        example: "Food"
+      notes:
+        type: string
+        example: "anything"
+      transactionID:
+        type: string
+        example: "Trans558349"
+    xml:
+      name: TransactionInfo
+
+
+
