@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 /* eslint-disable react/no-unescaped-entities */
 import "./App.css";
 // eslint-disable-next-line no-unused-vars
@@ -14,7 +13,9 @@ import Signup from "../../component/signup/Signup";
 import Error from "../error/Error";
 
 
-
+/**
+ * @description Function rendering all routes 
+ */
 function App() { 
 
   return (
@@ -69,7 +70,7 @@ function App() {
           <Header />
           <p>
             We couldn't find the user in our database, but, do not worry, your data are safe.
-            <br/>You may have enter wrong information, or our servers could be temporarily offline.
+            <br/>You may have entered wrong information, or our servers could be temporarily offline.
             <br/>You can try to connect again with right user information, or contact us at contact@argentbank.com.
           </p>
           <Connect />

@@ -10,10 +10,12 @@ import { errorSubmitSignupAction } from "./Actions";
 import { goodSubmitSignupAction } from "./Actions";
 import "./Signup.css";
 
+
+/**
+ * @description Function rendering Sign Up feature
+ */
 function Signup(){
 
-
-  //let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const email = useSelector(selectEmailCreation);
@@ -21,40 +23,49 @@ function Signup(){
   const firstName = useSelector(selectFirstNameCreation);
   const lastName = useSelector(selectLastNameCreation);
 
+
+  /**
+   * @description When field changes, thoses changes are sent to its linked state
+   */
   const onEmailCreationChange = (event) => {
     dispatch(onChangeEmailCreation(event));
   };
 
+  /**
+   * @description When field changes, thoses changes are sent to its linked state
+   */
   const onPasswordCreationChange = (event) => {
     dispatch(onChangePasswordCreation(event));
   };
 
+  /**
+   * @description When field changes, thoses changes are sent to its linked state
+   */
   const onFirstNameCreationChange = (event) => {
     dispatch(onChangeFirstNameCreation(event));
   };
 
+  /**
+   * @description When field changes, thoses changes are sent to its linked state
+   */
   const onLastNameCreationChange = (event) => {
     dispatch(onChangeLastNameCreation(event));
   };
 
-
   const errorSubmitSignup = useSelector(selectSignupFieldsErrorStatus);
+
+  /**
+   * @description When form is sent, send states value into CreateData function in order to create User Data in API 
+   */
   const onSubmit = async (e) => {
     e.preventDefault();
-
-
     if (email == "" || password == "" || firstName == "" || lastName == ""){
-
       dispatch(errorSubmitSignupAction());
       return false;
     }else{
       dispatch(goodSubmitSignupAction());
-
-
       await createData(email,password,firstName,lastName);
-
     }
-
   };
 
   return(

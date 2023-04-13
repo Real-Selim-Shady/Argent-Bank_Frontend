@@ -1,9 +1,4 @@
-/* eslint-disable no-debugger */
-
-
 import React from "react";
-//import { setData } from "./Actions";
-//import { store } from "../../utils/store";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectEmail, selectPassword } from "../../utils/selectors";
@@ -16,8 +11,10 @@ import { goodSubmitSigninAction } from "./Actions";
 import { selectSigninFieldsErrorStatus } from "../../utils/selectors";
 import "./Connect.css";
 
+/**
+ * @description Function rendering Connect feature
+ */
 function Connect(){
-
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,20 +22,31 @@ function Connect(){
   const email = useSelector(selectEmail);
   const password = useSelector(selectPassword);
 
+  /**
+   * @description When field changes, thoses changes are sent to its linked state
+   */
   const onEmailChange = (event) => {
     dispatch(onChangeEmail(event));
   };
 
+  /**
+   * @description When field changes, thoses changes are sent to its linked state
+   */
   const onPasswordChange = (event) => {
     dispatch(onChangePassword(event));
   };
 
   const signinFieldErrorStatus = useSelector(selectSigninFieldsErrorStatus);
 
+  /**
+   * @description rememberState is used to check is user wants to be remembered or not
+   */
   const rememberState = useSelector(selectRemember);
   const changeRememberStatus = () => { dispatch(setRemember());};
 
-
+  /**
+   * @description When form is sent, states value are sent to the API
+   */
   const onSubmit = async (e) => {
     e.preventDefault();
     if (email == "" || password == ""){
@@ -47,15 +55,8 @@ function Connect(){
     }else{
       dispatch(goodSubmitSigninAction());
     await connectAPI(email, password, rememberState);
-    /*const storedData = JSON.parse(localStorage.getItem("fetchedData")); // valable connect api 2
-    const dataToSet = storedData; // utilise les données existantes si elles existent
-    store.dispatch(setData(dataToSet)); // envoie les données dans le store*/
     navigate("/user/profile");}
-
   };
-
-
-
 
   return(
 

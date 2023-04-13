@@ -1,7 +1,9 @@
-/* eslint-disable no-debugger */
 import axios from "axios";
 import { accountService } from "./accountService";
 
+/**
+ * @description Connection API
+ */
 export async function connectAPI(email, password, rememberState) {
   try {
     const res = await axios.post("http://localhost:3001/api/v1/user/login", { email, password });
@@ -25,6 +27,9 @@ export async function connectAPI(email, password, rememberState) {
   }
 }
 
+/**
+ * @description Creating Data API
+ */
 export async function createData(email, password, firstName, lastName) {
   try {
     await axios.post("http://localhost:3001/api/v1/user/signup", { email, password, firstName, lastName });
@@ -39,6 +44,9 @@ export async function createData(email, password, firstName, lastName) {
   }
 }
 
+/**
+ * @description Retrieving Data API
+ */
 export async function getData() {
   const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const response = await axios.post(
@@ -60,20 +68,22 @@ export async function getData() {
 }
 
 
-
+/**
+ * @description Updating Data API
+ */
 export async function updateData (dataEdit) {
   try{
-    const token = localStorage.getItem("token2") || sessionStorage.getItem("token2"); 
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token"); 
     const response = await axios.put("http://localhost:3001/api/v1/user/profile", dataEdit, {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json", // spécifie que le corps est en JSON
+        "Content-Type": "application/json", 
       },
     });
     const res = response.data;
     localStorage.setItem("user/signedInEdited", JSON.stringify(res));
   } catch(error) {
-    console.log(error);
+    console.log("error status",error);
     accountService.logout();
     window.location.replace("/*");
     return false;

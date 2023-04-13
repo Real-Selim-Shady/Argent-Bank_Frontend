@@ -1,6 +1,9 @@
 import React from "react";
 import "./Error.css";
 
+/**
+ * @description Function rendering an overall error message
+ */
 function Error(){
 
     return(

@@ -2,6 +2,10 @@
 import React from "react";
 import "./Welcome.css";
 
+
+/**
+ * @description Function rendering the welcome interface 
+ */
 function Welcome(){
 
     return (

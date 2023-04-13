@@ -4,6 +4,9 @@ import React from "react";
 import "./Header.css";  
 import Log from "../logButton/Log";
 
+/**
+ * @description Function rendering header
+ */
 function Header(){
 
     return (

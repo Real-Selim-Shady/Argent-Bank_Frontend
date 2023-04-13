@@ -4,7 +4,9 @@ import React from "react";
 
 import "./Footer.css";
 
-
+/**
+ * @description Function rendering footer
+ */
 function Footer(){
 
     return (

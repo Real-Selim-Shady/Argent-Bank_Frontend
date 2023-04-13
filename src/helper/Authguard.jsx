@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-//import { accountService } from "../services/accountService";
-import { useSelector/*, useDispatch*/ } from "react-redux";
-//import { selectData } from "../utils/selectors";
-//import { useEffect } from "react";
-//import { accountService } from "../services/accountService";
+import { useSelector } from "react-redux";
 import { selectToken } from "../utils/selectors";
 import { store } from "../utils/store";
 import { setToken } from "../component/profile/Actions";
-//import { getData } from "../services/APIcalls";
-//import { selectFirstName } from "../utils/selectors";
-//import { selectLastName } from "../utils/selectors";
-//import { setFirstName } from "../component/profile/Actions";
-//import { setLastName } from "../component/profile/Actions";
+import React from "react";
+import PropTypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
+
+/**
+ * @description Function forcing user to be connected in order to go to profile page
+ */
 function AuthGuard({children}){
-
 
 
     const [isLoaded, setIsLoaded] = useState(true);
@@ -24,9 +19,9 @@ function AuthGuard({children}){
 
 
     useEffect(() => {
-
-
-      
+        /**
+         * @description If token is in the storage, it's sent to the storage 
+         */
         let tokenCheck = sessionStorage.getItem("token"); 
         if (!tokenCheck) { 
         tokenCheck = localStorage.getItem("token");
@@ -41,14 +36,20 @@ function AuthGuard({children}){
 
     }, []);
 
+    /**
+     * @description If token is in the state, AuthGuard let user access to profile
+     */
     if (!isLoaded){
-        //if(accountService.isLogged()){
         if(tokenState != "" ){
-        //if(tokenCheck != null){
         return children;}
-        // eslint-disable-next-line react/react-in-jsx-scope
         else{return <Navigate to = "/user/login" />;}
         }else{null;}
 }
 
+AuthGuard.propTypes = {
+    children: PropTypes.object.isRequired
+  };
+
 export default AuthGuard;
+
+

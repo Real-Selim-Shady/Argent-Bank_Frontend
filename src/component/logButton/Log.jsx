@@ -3,39 +3,53 @@ import React from "react";
 import "./Log.css";  
 import { accountService } from "../../services/accountService";
 import { useNavigate } from "react-router-dom";
-import { /*selectData,*/ selectToken } from "../../utils/selectors";
+import { selectToken } from "../../utils/selectors";
 import { useSelector } from "react-redux";
 import { store } from "../../utils/store";
-import { /*setFirstName,*/ setToken } from "../profile/Actions";
+import { setToken } from "../profile/Actions";
 import { useEffect } from "react";
 import { selectUserData } from "../../utils/selectors";
 import { getData } from "../../services/APIcalls";
 import { setUserData } from "../profile/Actions";
 
 
-
+/**
+ * @description Function rendering logs (in - out), sign up, and go to profile buttons
+ */
 function Log(){
 
-   let navigate = useNavigate();
-   const tokenState = useSelector(selectToken);
-   const userDataSetted = useSelector(selectUserData);
+    let navigate = useNavigate();
+    const tokenState = useSelector(selectToken);
+    const userDataSetted = useSelector(selectUserData);
 
+    /**
+     * @description Function seting log out button
+     */
     const logout = () => {
         accountService.logout();
         store.dispatch(setToken(""));
         navigate("/");
     };
 
+    /**
+     * @description Function seting log in button
+     */
     const login = () => {
         navigate("/user/login");
     };
 
+    /**
+     * @description Function sign up in button
+     */
     const signUp = () => {
         navigate("/user/signup");
     };
 
     useEffect(()=> {
 
+        /**
+         * @description If token exists it's sent to its state
+         */
         let tokenCheck = sessionStorage.getItem("token"); 
         if (!tokenCheck) { 
         tokenCheck = localStorage.getItem("token");
@@ -44,6 +58,9 @@ function Log(){
 
         if(tokenCheck != null) {
             store.dispatch(setToken(tokenCheck)); 
+            /**
+             * @description Function retrieving user name on profile button
+             */
             const nameAsync = async () =>{
             try{await getData();}catch(error){console.log(error); accountService.logout(); navigate("/*"); return;}
             const fetchedUserData = JSON.parse(localStorage.getItem("user/signedIn"));
@@ -77,7 +94,8 @@ function Log(){
                 Sign Out
                 </a>
             </div>
-        );}
+        );
+    }
 
 }
 
