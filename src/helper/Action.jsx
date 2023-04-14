@@ -1,0 +1,1 @@
+export const setAGLoader = () => ({type : "AGFinishedLoading", payload : false});

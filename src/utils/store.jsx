@@ -5,7 +5,6 @@ import produce from "immer";
 const initialState = {
     email: "",
     password:"",
-    data: {},
     userData: {},
     firstName: "",
     lastName: "",
@@ -18,6 +17,8 @@ const initialState = {
     signinFieldsErrorStatus: false,
     editing: false,
     remembered: false,
+    authGuardLoading: true,
+    profileLoading: true,
 };
 
 
@@ -116,6 +117,14 @@ function reducer( state = initialState, action){
         case "changeRememberStatus":
             return produce(state, draft => {
                 draft.remembered = !draft.remembered;
+            });
+        case "profileFinishedLoading":
+            return produce(state, draft => {
+                draft.profileLoading = action.payload;
+            });
+        case "AGFinishedLoading":
+            return produce(state, draft => {
+                draft.authGuardLoading = action.payload;
             });
         default:
             return state;

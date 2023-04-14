@@ -1,4 +1,3 @@
-
 import { onChangeFirstName } from "./Actions";
 import { onChangeLastName } from "./Actions";
 import { setFirstName } from "./Actions";
@@ -6,7 +5,7 @@ import { setLastName } from "./Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "./Actions";
 import { selectUserData } from "../../utils/selectors";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { updateData } from "../../services/APIcalls";
 import { store } from "../../utils/store";
 import { selectToken } from "../../utils/selectors";
@@ -16,6 +15,8 @@ import "./Profile.css";
 import { isEditingAction } from "./Actions";
 import { isNotEditingAction } from "./Actions";
 import { selectEditUserInfo } from "../../utils/selectors";
+import { selectPLoader } from "../../utils/selectors";
+import { setPLoader } from "./Actions";
 
 
 /**
@@ -23,7 +24,8 @@ import { selectEditUserInfo } from "../../utils/selectors";
  */
 function Profile(){
 
-  const [isLoaded, setIsLoaded] = useState(true);
+  const PLoader = useSelector(selectPLoader);
+  console.log("Ploader value",PLoader);
   const dispatch = useDispatch();
   const tokenState = useSelector(selectToken);
   const userDataSetted = useSelector(selectUserData);
@@ -49,13 +51,13 @@ function Profile(){
         await store.dispatch(setUserData(newFetchedUserData));
         store.dispatch(setFirstName(userDataSetted?.body?.firstName));
         store.dispatch(setLastName(userDataSetted?.body?.lastName));
-        setIsLoaded(false);
+        store.dispatch(setPLoader());
       }else if(fetchedUserData){
         setUserData(fetchedUserData);
         await store.dispatch(setUserData(fetchedUserData));
         store.dispatch(setFirstName(fetchedUserData.body.firstName));
         store.dispatch(setLastName(fetchedUserData.body.lastName));
-        setIsLoaded(false);
+        store.dispatch(setPLoader());
       }
     };
     workAsync();
@@ -118,13 +120,13 @@ function Profile(){
         await store.dispatch(setUserData(newFetchedUserData));
         store.dispatch(setFirstName(userDataSetted?.body?.firstName));
         store.dispatch(setLastName(userDataSetted?.body?.lastName));
-        setIsLoaded(false);
+        store.dispatch(setPLoader());
       }else if(fetchedUserData){
         setUserData(fetchedUserData);
         await store.dispatch(setUserData(fetchedUserData));
         store.dispatch(setFirstName(fetchedUserData.body.firstName));
         store.dispatch(setLastName(fetchedUserData.body.lastName));
-        setIsLoaded(false);
+        store.dispatch(setPLoader());
       }
     };
     workAsync2();
@@ -132,7 +134,7 @@ function Profile(){
   };
 
   if(tokenState != null){
-    if (!isLoaded) {
+    if (!PLoader) {
     return (
     <main className="main bg-dark">
       {(isEditing === false)&&
@@ -190,11 +192,13 @@ function Profile(){
           </div>
         </section>
       </main>
-    );}else{return (<div>loading</div>);}
+    );}else{return (<div className="lds-dual-ring"></div>);}
   }else{
     return <Navigate to = "/user/login" />;
   }
 
+
+  
 }
 
 export default Profile;

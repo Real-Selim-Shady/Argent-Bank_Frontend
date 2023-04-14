@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+1. `Prerequisites`
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Node.js v12 - https://nodejs.org/en/download/
+- MongoDB Community Server - https://www.mongodb.com/try/download/community
 
-## Available Scripts
+2. `Install project`
 
-In the project directory, you can run:
+Create a directory P13.
+Inside, clone the two following folders:
+- Backend: git clone https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API.git
+- Frontend: git clone https://github.com/Real-Selim-Shady/Project-13-Frontend.git
 
-### `npm start`
+3. `Install dependencies`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- In backend folder, install npm dependencies: cmd "npm install"
+- In frontend folder, install npm dependencies: cmd "npm install"
+- In frontend folder, install react-redux dependencies: cmd "npm install react-redux"
+- In frontend folder, install immer dependencies: cmd "npm install immer"
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. `Launch project`
 
-### `npm test`
+- In frontend folder, launch cmd "npm start"
+    - Your Frontend project should now be running at http://locahost:3000/
+- In backend folder, launch cmd "npm run dev:server"
+- In backend folder, launch cmd "npm run populate-db"
+    - Your Backend server should now be running at http://locahost:3001 and you will now have two users in your MongoDB database
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. `Populated Database Data`
 
-### `npm run build`
+Once you run the `populate-db` script, you should have two users in your database:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Tony Stark
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- First Name: `Tony`
+- Last Name: `Stark`
+- Email: `tony@stark.com`
+- Password: `password123`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Steve Rogers
 
-### `npm run eject`
+- First Name: `Steve`,
+- Last Name: `Rogers`,
+- Email: `steve@rogers.com`,
+- Password: `password456`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+6. `API Documentation`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To learn more about how the API works, once you have started your local environment, you can visit: http://localhost:3001/api-docs
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+7. `Available Queries`
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Visit welcome page on http://locahost:3000/
+- Log in on http://locahost:3000/user/login
+- Visit one of the user profile while connected, using  http://locahost:3000/user/profile
+- Sign up on http://locahost:3000/user/signup and create a new user
+- Get redirected to http://locahost:3000/SuccessSignup/login when you successfully signed up and connect to your new profile
+- Get redirected to http://locahost:3000/user/login if you try to access the profile page http://locahost:3000/user/profile without being connected
+- Get redirected to a relevant error page according to your error between:
+    -http://locahost:3000/error/connection
+    -http://locahost:3000/error/connectUserUnknown
+    -http://locahost:3000/error/connectWrongPassword
+    -http://locahost:3000/error/signup
+    -http://locahost:3000/error/signupMailExist
+    -http://locahost:3000/*

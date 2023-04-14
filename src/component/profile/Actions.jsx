@@ -7,3 +7,5 @@ export const setToken = (token)=> ({type: "SET_TOKEN", payload: token });
 
 export const isEditingAction = () => ({type: "isEditing", payload : true});
 export const isNotEditingAction = () => ({type: "isNotEditing", payload : false});
+
+export const setPLoader = () => ({type : "profileFinishedLoading", payload : false});

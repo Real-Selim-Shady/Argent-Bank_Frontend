@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../utils/selectors";
@@ -6,6 +6,8 @@ import { store } from "../utils/store";
 import { setToken } from "../component/profile/Actions";
 import React from "react";
 import PropTypes from "prop-types";
+import { selectAGLoader } from "../utils/selectors";
+import { setAGLoader } from "./Action";
 
 
 /**
@@ -14,11 +16,12 @@ import PropTypes from "prop-types";
 function AuthGuard({children}){
 
 
-    const [isLoaded, setIsLoaded] = useState(true);
-    const tokenState = useSelector(selectToken);
 
+    const tokenState = useSelector(selectToken);
+    const AGLoader = useSelector(selectAGLoader);
 
     useEffect(() => {
+
         /**
          * @description If token is in the storage, it's sent to the storage 
          */
@@ -29,17 +32,15 @@ function AuthGuard({children}){
         store.dispatch(setToken(tokenCheck));
 
         setTimeout(() => {
-            setIsLoaded(false);
+            store.dispatch(setAGLoader());
             }, 100);
-
-
 
     }, []);
 
     /**
      * @description If token is in the state, AuthGuard let user access to profile
      */
-    if (!isLoaded){
+    if (!AGLoader){
         if(tokenState != "" ){
         return children;}
         else{return <Navigate to = "/user/login" />;}

@@ -9,7 +9,6 @@ export const selectLastNameCreation = (state => state?.lastNameCreation);
 
 
 
-export const selectData = (state) => state?.data;
 export const selectUserData = (state) => state?.userData;
 export const selectToken = (state) => state?.token;
 
@@ -19,3 +18,6 @@ export const selectSigninFieldsErrorStatus = (state) => state?.signinFieldsError
 export const selectEditUserInfo = (state) => state?.editing;
 
 export const selectRemember = (state) => state?.remembered;
+
+export const selectAGLoader = (state) => state?.authGuardLoading;
+export const selectPLoader = (state) => state?.profileLoading;
