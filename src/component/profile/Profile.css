@@ -15,8 +15,8 @@ padding-top: 1px;
 }
 
 .edit-button {
-    border-color: #6b63d3;
-    background-color: #6b63d3;
+    border-color: #5256EC;
+    background-color: #5256EC;
     color: #fff;
     font-weight: bold;
     padding: 10px;
@@ -70,9 +70,9 @@ font-size: 1.2rem;
     font-size: 20px;
     font-weight: bold;
     margin-top: 1rem;
-    border-color: #6b63d3;
+    border-color: #5256EC;
     background-color: white;
-    color: #6b63d3;
+    color: #5256EC;
     font-family: 'Anuphan', sans-serif;
     border-radius: 5px;
     margin-left: 9px;
@@ -125,8 +125,8 @@ padding: 8px;
 font-size: 1.1rem;
 font-weight: bold;
 margin-top: 1rem;
-border-color: #6b63d3;
-background-color: #6b63d3;
+border-color: #5256EC;
+background-color: #5256EC;
 color: #fff;
 font-family: 'Anuphan', sans-serif;
 border-radius: 5px;
