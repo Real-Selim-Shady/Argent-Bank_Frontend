@@ -73,7 +73,7 @@ function Connect(){
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" value={password} onChange={onPasswordChange} />
-            {(password === "" && signinFieldErrorStatus === true) && <div className="empty-field-message">Please fill the last name field</div>}
+            {(password === "" && signinFieldErrorStatus === true) && <div className="empty-field-message">Please fill the password field</div>}
           </div>
           <div className="input-remember">
             <label htmlFor="remember-me">

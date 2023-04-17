@@ -84,7 +84,7 @@ function App() {
           <p>
             Something wrong happened.
             <br/>The email you entered is not recognized.
-            <br/>If your account already exist, we may have troubles with our server, and you could try again later.
+            <br/>If your account already exists, we may have troubles with our server, and you could try again later.
             <br/>Otherwise, please verify the email you entered or create an account.
           </p>
           <Connect />
@@ -120,7 +120,7 @@ function App() {
       <div>
         <Header />
         <p>
-            The email you entered already exist in our database.
+            The email you entered already exists in our database.
             <br/>You can try to signup with a non existing email, connect to an existing profile, or contact us at contact@argentbank.com.
         </p>
         <Signup />
