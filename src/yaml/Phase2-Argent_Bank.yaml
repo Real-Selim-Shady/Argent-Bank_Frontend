@@ -7,7 +7,7 @@ info:
     The data used to inspire this work are phase 2 wireframes shared.
     The goal is to imagine an API update which will allow users to:
     - see all transactions achieved during the current month,
-    - see each transactions detail,
+    - see one transaction details,
     - add, modify or erase some of the transactions' details : category and notes (based on wireframes).
   version: '1.0.0'
   termsOfService: 'http://swagger.io/terms/'
@@ -17,11 +17,11 @@ schemes:
   - http
 paths:
   /user/accounts:
-    post:
+    get:
       security:
         - Bearer: []
       tags:
-        - accounts
+      - Accounts
       summary: User Accounts API
       description: Retrieve all user accounts
       parameters:
@@ -43,13 +43,13 @@ paths:
           description: User not logged in
         '500':
           description: Internal Server Error
-  /user/getTransactions:
-    post:
+  /user/getTransactions{accountId}:
+    get:
       security:
         - Bearer: []
       tags:
-        - transactions
-      summary: User transactions API showing transactions current month user’s transactions
+        - Transactions
+      summary: User transactions API showing current month user’s transactions
       description: Retrieve account's transactions for the current month
       parameters:
         - in: header
@@ -58,10 +58,14 @@ paths:
           type: string
           required: true
         - in: body
-          name: AccountFilter
-          description: AccountFilter with id and dates
+          name: DateFilter
+          description: Filter by dates, showing transactions of current month
           schema:
-            $ref: '#/definitions/AccountFilter'
+            $ref: '#/definitions/DateFilter'
+        - in: path
+          name: accountId
+          description: AccountID
+          type: string
           required: true
       consumes:
         - application/json
@@ -76,6 +80,47 @@ paths:
           description: Account doesn't exist
         '403':
           description: User not logged in
+        '500':
+          description: Internal Server Error
+  /user/getTransaction{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction
+      summary: User transaction API showing one transaction details from current month 
+      description: Retrieve one transaction for the current month
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: DateFilter
+          description: Filter by dates, showing a transaction of current month
+          schema:
+            $ref: '#/definitions/DateFilter'
+        - in: path
+          name: transactionId
+          description: TransactionID
+          type: string
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction retrieved successfully
+          schema:
+            $ref: '#/definitions/DetailedTransaction'    
+        '401':
+          description: Transaction doesn't exist
+        '403':
+          description: User not logged in
+        '405':
+          description: Transaction is not from current month
         '500':
           description: Internal Server Error
   /user/editTransaction:
@@ -172,6 +217,46 @@ definitions:
           $ref: '#/definitions/transaction'
     xml:
       name: transactions
+
+  DetailedTransaction:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int64
+      message:
+        type: string
+        format: string
+      transaction:
+        type: object
+        properties:
+          date:
+            type: string
+            format: date
+            example: "20/06/2020"
+          description:
+            type: string
+            example: "Golden Sun Bakery"
+          amount:
+            type: number
+            example: 50.00
+          balance:
+            type: number
+            example: 2187.79
+          transactionType:
+            type: string
+            example: "Electronic"
+          category:
+            type: string
+            example: "Food"
+          notes:
+            type: string
+            example: "anything"
+          transactionID:
+            type: string
+            example: "Trans558349"
+    xml:
+      name: detailed transaction
       
   transaction:
     type: object
@@ -189,27 +274,15 @@ definitions:
       balance:
         type: number
         example: 2187.79
-      transactionType:
-        type: string
-        example: "Electronic"
-      category:
-        type: string
-        example: "Food"
-      notes:
-        type: string
-        example: "anything"
       transactionID:
         type: string
         example: "Trans558349"
     xml:
-      name: transactions
+      name: transaction
   
-  AccountFilter:
+  DateFilter:
     type: object
     properties:
-      accountId:
-        type: string
-        example: "Axxo8349"
       dateFrom:
         type: string
         format: date
@@ -218,6 +291,8 @@ definitions:
         type: string
         format: date
         description: end of current month
+    xml:
+      name: date filter
 
 
   TransactionEdit:

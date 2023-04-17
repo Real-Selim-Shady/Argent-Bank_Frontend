@@ -24,14 +24,6 @@ const initialState = {
 
 function reducer( state = initialState, action){
     switch(action.type){
-        case "actionDesc1":
-            return  produce(state, draft => {
-                draft.state1 = "blabla1";
-            });
-        case "actionDesc2":
-            return  produce(state, draft => {
-                draft.state2 = "blabla2";
-            });
         case "onChangeEmail":
             return produce(state, draft => {
                 draft.email = action.payload;
@@ -51,7 +43,6 @@ function reducer( state = initialState, action){
         case "onChangeFirstName":
             return produce(state, draft => {
                 draft.userData.body.firstName = action.payload;
-                //draft.firstName = action.payload;
             });
         case "onChangeLastName":
             return produce(state, draft => {
